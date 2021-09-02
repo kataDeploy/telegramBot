@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/telegramBot/static/css/main.21543741.chunk.css",
-    "main.js": "/telegramBot/static/js/main.1cb8e81a.chunk.js",
-    "main.js.map": "/telegramBot/static/js/main.1cb8e81a.chunk.js.map",
+    "main.js": "/telegramBot/static/js/main.118a938e.chunk.js",
+    "main.js.map": "/telegramBot/static/js/main.118a938e.chunk.js.map",
     "runtime-main.js": "/telegramBot/static/js/runtime-main.a163f055.js",
     "runtime-main.js.map": "/telegramBot/static/js/runtime-main.a163f055.js.map",
     "static/css/2.786ae0dd.chunk.css": "/telegramBot/static/css/2.786ae0dd.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.786ae0dd.chunk.css",
     "static/js/2.42271ced.chunk.js",
     "static/css/main.21543741.chunk.css",
-    "static/js/main.1cb8e81a.chunk.js"
+    "static/js/main.118a938e.chunk.js"
   ]
 }
