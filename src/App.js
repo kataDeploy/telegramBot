@@ -8,7 +8,6 @@ import { Button } from "antd";
 import axios from "axios";
 import "./App.css";
 
-const BACEND_URL = 'http://localhost:3001/';
 let intervalId = -1;
 
 function App() {
@@ -16,20 +15,24 @@ function App() {
   const [price, setPrice] = useState(0);
   const [parity, setParity] = useState("usd");
   const [operation, setOperation] = useState("GREATER");
+  const [telegramApi, setTelegramApi] = useState("");
+  const [chatId, setChatId] = useState(-1);
+  const [backendIp, setBackendIp] = useState('');
+
 
 
   
   const onSync = () => {
     console.log('sync started...')
     const path = 'sync';
-    axios.get(BACEND_URL+path).then(res=>{
+    axios.get(backendIp+path).then(res=>{
       setTrackTable(res.data)
     })
  
   }
   const startTrack = () => {
     clearInterval(intervalId);
-    axios.get(BACEND_URL+'startBot').then(res=>{
+    axios.get(backendIp+'startBot').then(res=>{
       console.log(res.data)
     })
     intervalId = setInterval(() => {
@@ -40,7 +43,7 @@ function App() {
     clearInterval(intervalId);
     const path = 'stop';
 
-    axios.get(BACEND_URL+path).then(res=>{
+    axios.get(backendIp+path).then(res=>{
       console.log(res.data)
     })
    
@@ -49,7 +52,7 @@ function App() {
     const path = 'add';
     const reqParam = {parity,operation,price};
 
-    axios.post(BACEND_URL+path,reqParam).then(res=>{
+    axios.post(backendIp+path,reqParam).then(res=>{
       setTrackTable(res.data)
     })
   }
@@ -70,7 +73,7 @@ function App() {
   const removeTrack = (key) => {
     const path = 'remove';
     console.log(key)
-    axios.post(BACEND_URL+path,{key}).then(res=>{
+    axios.post(backendIp+path,{key}).then(res=>{
       setTrackTable(res.data);
     })
   }
@@ -124,12 +127,27 @@ function App() {
     
   ]
 
+  const setTelegramConfig = () => {
+    const path = 'setTelegram';
+    axios.post(backendIp+path,{telegramApi,chatId}).then(res=>{
+      console.log('telegramSet')
+    })
+  }
+  
   return (
     <div className="App">
       <div style={{display:'flex'}}>
       <Button className="setupButtons" type="primary" onClick={onSync}>SYNC</Button>
       <Button className="setupButtons" type="primary" onClick={startTrack}>Start Track</Button>
       <Button className="setupButtons" type="primary" onClick={stopTrack}>Stop Track</Button>
+      </div>
+      <div>
+        <div style={{width:'300px', margin:'10px 10px'}}>
+      <Input placeholder="telegram api" onChange={(e)=> setTelegramApi(e.target.value)}></Input>
+      <Input placeholder="chatId" onChange={(e)=> setChatId(e.target.value)}></Input>
+      <Input placeholder="backend IP" onChange={(e)=> setBackendIp(e.target.value)}></Input>
+        </div>
+      <Button className="setupButtons" type="primary" onClick={setTelegramConfig}>Set Telegram</Button>
       </div>
 
       <div className="additionBox">
